@@ -1,3 +1,39 @@
 #include <stdio.h>
-void g(int *p,int *q){int t=*p,r=0;while(t>0){r=(r<<1)|(t&1);t>>=1;}*q=r;}
-int main(void){int n,m;scanf("%d",&n);if(n<=0){printf("NG");return 0;}g(&n,&m);printf("%d,%d",n,m);return 0;}
+
+/* 整数の2進数表現を逆順にした値を求める関数 */
+void reverseBinary(int *inputNumber, int *reversedNumber)
+{
+    int currentValue = *inputNumber;
+    int reversedValue = 0;
+
+    /* 下位ビットから順に取り出して逆順に並べる */
+    while (currentValue > 0)
+    {
+        reversedValue = (reversedValue << 1) | (currentValue & 1);
+        currentValue >>= 1;
+    }
+
+    *reversedNumber = reversedValue;
+}
+
+int main(void)
+{
+    int inputNumber;
+    int resultNumber;
+
+    scanf("%d", &inputNumber);
+
+    /* 正の整数以外は NG */
+    if (inputNumber <= 0)
+    {
+        printf("NG");
+        return 0;
+    }
+
+    /* ビット列を反転した値を計算 */
+    reverseBinary(&inputNumber, &resultNumber);
+
+    printf("%d,%d", inputNumber, resultNumber);
+
+    return 0;
+}
